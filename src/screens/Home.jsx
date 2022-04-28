@@ -13,6 +13,7 @@ import SelectSource from "../components/SelectSource";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [preview, setPreview] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
@@ -53,13 +54,13 @@ export default function Home() {
       </View>
       <Animated.View
         style={[
-          styles.footer,
+          { ...styles.footer },
           {
             opacity: fadeAnim
           }
         ]}
       >
-        <SelectSource close={fadeOut} />
+        <SelectSource close={fadeOut} setPreview={setPreview} />
       </Animated.View>
     </View>
   );
@@ -84,7 +85,8 @@ const styles = StyleSheet.create({
     width: "90%"
   },
   footer: {
-    flex: 0.3,
+    position: "absolute",
+    bottom: 0,
     width: "100%",
     alignItems: "center",
     justifyContent: "flex-start",
