@@ -1,33 +1,7 @@
-import { useState } from "react";
-import {
-  StyleSheet,
-  Image,
-  Text,
-  View,
-  Platform,
-  TouchableOpacity
-} from "react-native";
-import * as ImagePicker from "expo-image-picker";
+import { StyleSheet, Text, View, Platform } from "react-native";
+import DragZone from "../components/DragZone";
 
 export default function Home() {
-  const [image, setImage] = useState(null);
-
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -36,19 +10,10 @@ export default function Home() {
       </View>
       <View style={styles.uploader}>
         <Text style={styles.text}>¿Quién es el famoso?</Text>
-        {/* <Button title="Pick an image from camera roll" onPress={pickImage} />
-        {image && (
+        {/* {image && (
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
         )} */}
-        <TouchableOpacity style={styles.dragZone} onPress={pickImage}>
-          <Image
-            source={require("../../assets/image-icon.png")}
-            style={styles.icon}
-          />
-          <Text style={styles.dragText}>
-            Presiona para seleccionar una foto
-          </Text>
-        </TouchableOpacity>
+        <DragZone />
       </View>
     </View>
   );
@@ -74,18 +39,6 @@ const styles = StyleSheet.create({
     marginRight: "5%",
     backgroundColor: "#E5E5E5",
     width: "90%"
-  },
-  dragZone: {
-    flex: 0.2,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    backgroundColor: "#F1F5F9",
-    marginTop: 10,
-    borderRadius: 1,
-    borderWidth: 2,
-    borderColor: "#3843D0",
-    borderStyle: "dashed"
   },
   title: {
     fontSize: 24,
@@ -113,19 +66,5 @@ const styles = StyleSheet.create({
       ios: { fontFamily: "Arial" },
       android: { fontFamily: "Roboto" }
     })
-  },
-  dragText: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: "#3843D0",
-    ...Platform.select({
-      ios: { fontFamily: "Arial" },
-      android: { fontFamily: "Roboto" }
-    })
-  },
-  icon: {
-    width: 40,
-    height: 40,
-    marginBottom: 10
   }
 });
