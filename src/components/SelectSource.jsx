@@ -9,9 +9,12 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import StatusText from "./StatusText";
 
 export default function SelectSource({ close, setPreview }) {
   const [image, setImage] = useState(null);
+  const [status, setStatus] = useState("error");
+  const [name, setName] = useState("Will Smith");
 
   const openCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -55,7 +58,12 @@ export default function SelectSource({ close, setPreview }) {
           />
           <Text style={styles.subtitle}>Subiendo...</Text>
           <Image source={{ uri: image }} style={styles.image_preview} />
-          <Text style={styles.text_image}>Buscando...</Text>
+          <StatusText status={status} name={name} />
+          {status !== "search" && status !== "ready" && (
+            <TouchableOpacity style={styles.btn_close}>
+              <Text style={styles.btn_text}>Cerrar</Text>
+            </TouchableOpacity>
+          )}
         </>
       ) : (
         <>
@@ -110,24 +118,6 @@ const styles = StyleSheet.create({
       android: { fontFamily: "Roboto" }
     })
   },
-  text_image: {
-    backgroundColor: "#3843D0",
-    paddingTop: 7,
-    paddingBottom: 7,
-    paddingLeft: 16,
-    paddingRight: 16,
-    marginTop: 20,
-    marginBottom: 40,
-    borderRadius: 16,
-    fontSize: 16,
-    fontWeight: "700",
-    textAlign: "center",
-    color: "#F8FAFC",
-    ...Platform.select({
-      ios: { fontFamily: "Arial" },
-      android: { fontFamily: "Roboto" }
-    })
-  },
   divider: {
     backgroundColor: "#F1F5F9",
     width: 55,
@@ -141,5 +131,25 @@ const styles = StyleSheet.create({
     height: 211,
     marginTop: 20,
     borderRadius: 36
+  },
+  btn_close: {
+    width: "90%",
+    height: 56,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#3843D0",
+    marginBottom: 32,
+    marginLeft: "5%",
+    marginRight: "5%",
+    borderRadius: 12
+  },
+  btn_text: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#FFFFFF",
+    ...Platform.select({
+      ios: { fontFamily: "Arial" },
+      android: { fontFamily: "Roboto" }
+    })
   }
 });
