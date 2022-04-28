@@ -1,5 +1,12 @@
-import { StyleSheet, Text, View, Platform } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  TouchableOpacity
+} from "react-native";
 import DragZone from "../components/DragZone";
+import SelectSource from "../components/SelectSource";
 
 export default function Home() {
   return (
@@ -15,6 +22,7 @@ export default function Home() {
         )} */}
         <DragZone />
       </View>
+      <SelectSource />
     </View>
   );
 }
@@ -34,7 +42,7 @@ const styles = StyleSheet.create({
     width: "95%"
   },
   uploader: {
-    flex: 0.88,
+    flex: 0.58,
     marginLeft: "5%",
     marginRight: "5%",
     backgroundColor: "#E5E5E5",
