@@ -1,16 +1,45 @@
+import React, { useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Platform,
-  TouchableOpacity
+  Animated,
+  TouchableOpacity,
+  Button
 } from "react-native";
 import DragZone from "../components/DragZone";
 import SelectSource from "../components/SelectSource";
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: true
+    }).start();
+    setOpen(true);
+  };
+
+  const fadeOut = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true
+    }).start();
+    setOpen(false);
+  };
+
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: open ? "rgba(15, 23, 42, 0.5)" : "#FFFFFF"
+      }}
+    >
       <View style={styles.header}>
         <Text style={styles.title}>Hey, Dev 👋</Text>
         <Text style={styles.subtitle}>Keep up the good work!</Text>
@@ -20,9 +49,18 @@ export default function Home() {
         {/* {image && (
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
         )} */}
-        <DragZone />
+        <DragZone open={fadeIn} opened={open} />
       </View>
-      <SelectSource />
+      <Animated.View
+        style={[
+          styles.footer,
+          {
+            opacity: fadeAnim
+          }
+        ]}
+      >
+        <SelectSource close={fadeOut} />
+      </Animated.View>
     </View>
   );
 }
@@ -30,7 +68,6 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E5E5E5",
     alignItems: "flex-start",
     justifyContent: "flex-start"
   },
@@ -38,15 +75,22 @@ const styles = StyleSheet.create({
     flex: 0.12,
     marginTop: 50,
     marginLeft: "5%",
-    backgroundColor: "#E5E5E5",
     width: "95%"
   },
   uploader: {
     flex: 0.58,
     marginLeft: "5%",
     marginRight: "5%",
-    backgroundColor: "#E5E5E5",
     width: "90%"
+  },
+  footer: {
+    flex: 0.3,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#FFFFFF",
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32
   },
   title: {
     fontSize: 24,

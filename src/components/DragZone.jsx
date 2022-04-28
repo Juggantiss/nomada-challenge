@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export default function DragZone() {
+export default function DragZone({ open, opened }) {
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
@@ -27,7 +27,13 @@ export default function DragZone() {
   };
 
   return (
-    <TouchableOpacity style={styles.dragZone} onPress={pickImage}>
+    <TouchableOpacity
+      style={{
+        ...styles.dragZone,
+        backgroundColor: opened ? "rgba(15, 23, 42, 0.2)" : "#F1F5F9"
+      }}
+      onPress={open}
+    >
       <Image
         source={require("../../assets/image-icon.png")}
         style={styles.icon}
@@ -43,7 +49,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    backgroundColor: "#F1F5F9",
     marginTop: 10,
     borderRadius: 1,
     borderWidth: 2,

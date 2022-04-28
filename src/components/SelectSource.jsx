@@ -7,10 +7,10 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function SelectSource() {
+export default function SelectSource({ close }) {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.divider}></TouchableOpacity>
+    <>
+      <TouchableOpacity style={styles.divider} onPress={close} />
       <Text style={styles.subtitle}>Selecciona una foto</Text>
       <View style={styles.options}>
         <TouchableOpacity style={styles.btn_option}>
@@ -22,7 +22,7 @@ export default function SelectSource() {
           <Text style={styles.text_label}>Cámara</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </>
   );
 }
 
