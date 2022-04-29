@@ -30,8 +30,6 @@ export default function SelectSource({ close }) {
       quality: 1
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
       let uriParts = result.uri.split(".");
@@ -41,11 +39,11 @@ export default function SelectSource({ close }) {
         type: `image/${fileType}`,
         uri: result.uri
       };
-      upload(file);
+      await upload(file);
     }
   };
 
-  const upload = (file) => {
+  const upload = async (file) => {
     dispatch(changeStatus("Subiendo..."));
     dispatch(
       changeStatusFetch({
@@ -55,25 +53,25 @@ export default function SelectSource({ close }) {
     );
     const formData = new FormData();
     formData.append("file", file);
-    uploadPhoto(formData);
-    // try {
-    //   dispatch(changeStatus("Subiendo..."));
-    //   dispatch(
-    //     changeStatusFetch({
-    //       text: "Subiendo...",
-    //       color: "#3843D0"
-    //     })
-    //   );
-    //   // ...
-    //   const fetchStatus = Boolean(response.actorName) ? "success" : "notFound";
-    //   const statusMessage = getStatusByFetchResponse(fetchStatus, actorName);
-    //   dispatch(changeStatus(statusMessage.text));
-    //   dispatch(changeStatusFetch(statusMessage.details));
-    // } catch (error) {
-    //   const statusMessage = getStatusByFetchResponse("error");
-    //   dispatch(changeStatus(statusMessage.text));
-    //   dispatch(changeStatusFetch(statusMessage.details));
-    // }
+    const response = await uploadPhoto(formData);
+    if (response === "error") {
+      const statusMessage = getStatusByFetchResponse(response);
+      dispatch(changeStatus(statusMessage.text));
+      dispatch(changeStatusFetch(statusMessage.details));
+    } else {
+      const fetchStatus = Boolean(response.actorName) ? "success" : "notFound";
+      const statusMessage = getStatusByFetchResponse(
+        fetchStatus,
+        response.actorName
+      );
+      console.log("Mensaje fetch");
+      console.log(fetchStatus);
+      console.log(response.actorName);
+      console.log(statusMessage);
+      dispatch(changeStatus(statusMessage.text));
+      dispatch(changeStatusFetch(statusMessage.details));
+      console.log(stateUi);
+    }
   };
 
   const handleClose = () => {
