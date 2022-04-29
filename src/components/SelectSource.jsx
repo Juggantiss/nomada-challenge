@@ -15,6 +15,7 @@ import { changeStatus, changeStatusFetch } from "../redux/actions/stateUi";
 
 import StatusText from "./StatusText";
 import { getStatusByFetchResponse } from "../utils/getStatusByFetchResponse";
+import { uploadPhoto } from "../services/photo";
 
 export default function SelectSource({ close }) {
   const [image, setImage] = useState(null);
@@ -33,31 +34,46 @@ export default function SelectSource({ close }) {
 
     if (!result.cancelled) {
       setImage(result.uri);
-      // subir la imagen a la api
-      // manejar los status de la subida
-      uploadPhoto();
+      let uriParts = result.uri.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      const file = {
+        name: `actor.${fileType}`,
+        type: `image/${fileType}`,
+        uri: result.uri
+      };
+      upload(file);
     }
   };
 
-  const uploadPhoto = () => {
-    try {
-      dispatch(changeStatus("Subiendo..."));
-      dispatch(
-        changeStatusFetch({
-          text: "Subiendo...",
-          color: "#3843D0"
-        })
-      );
-      // ...
-      const fetchStatus = Boolean(response.actorName) ? "success" : "notFound";
-      const statusMessage = getStatusByFetchResponse(fetchStatus, actorName);
-      dispatch(changeStatus(statusMessage.text));
-      dispatch(changeStatusFetch(statusMessage.details));
-    } catch (error) {
-      const statusMessage = getStatusByFetchResponse("error");
-      dispatch(changeStatus(statusMessage.text));
-      dispatch(changeStatusFetch(statusMessage.details));
-    }
+  const upload = (file) => {
+    dispatch(changeStatus("Subiendo..."));
+    dispatch(
+      changeStatusFetch({
+        text: "Subiendo...",
+        color: "#3843D0"
+      })
+    );
+    const formData = new FormData();
+    formData.append("file", file);
+    uploadPhoto(formData);
+    // try {
+    //   dispatch(changeStatus("Subiendo..."));
+    //   dispatch(
+    //     changeStatusFetch({
+    //       text: "Subiendo...",
+    //       color: "#3843D0"
+    //     })
+    //   );
+    //   // ...
+    //   const fetchStatus = Boolean(response.actorName) ? "success" : "notFound";
+    //   const statusMessage = getStatusByFetchResponse(fetchStatus, actorName);
+    //   dispatch(changeStatus(statusMessage.text));
+    //   dispatch(changeStatusFetch(statusMessage.details));
+    // } catch (error) {
+    //   const statusMessage = getStatusByFetchResponse("error");
+    //   dispatch(changeStatus(statusMessage.text));
+    //   dispatch(changeStatusFetch(statusMessage.details));
+    // }
   };
 
   const handleClose = () => {
@@ -147,7 +163,7 @@ const styles = StyleSheet.create({
   },
   image_preview: {
     width: 175,
-    height: 211,
+    height: 210,
     marginTop: 20,
     borderRadius: 36
   },
