@@ -13,7 +13,6 @@ import SelectSource from "../components/SelectSource";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [preview, setPreview] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
@@ -47,9 +46,6 @@ export default function Home() {
       </View>
       <View style={styles.uploader}>
         <Text style={styles.text}>¿Quién es el famoso?</Text>
-        {/* {image && (
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-        )} */}
         <DragZone open={fadeIn} opened={open} />
       </View>
       <Animated.View
@@ -60,7 +56,7 @@ export default function Home() {
           }
         ]}
       >
-        <SelectSource close={fadeOut} setPreview={setPreview} />
+        <SelectSource close={fadeOut} />
       </Animated.View>
     </View>
   );
@@ -73,13 +69,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start"
   },
   header: {
-    flex: 0.12,
     marginTop: 50,
     marginLeft: "5%",
     width: "95%"
   },
   uploader: {
-    flex: 0.58,
+    height: "100%",
+    marginTop: 30,
     marginLeft: "5%",
     marginRight: "5%",
     width: "90%"

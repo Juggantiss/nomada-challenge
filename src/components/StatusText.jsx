@@ -1,39 +1,22 @@
-import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import { StyleSheet, Text, Platform } from "react-native";
+import { useSelector } from "react-redux";
 
-export default function StatusText({ status, name }) {
-  const renderMessage = () => {
-    if (status === "search") return "Buscando...";
-    if (status === "ready") return name;
-    if (status === "not_found") return "No se encontró";
-    if (status === "error") return "Error de red o de servidor";
-    return "";
-  };
-
-  const colorBg = () => {
-    if (status === "search") return "#3843D0";
-    if (status === "ready") return "#4ADE80";
-    if (status === "not_found") return "#FDE047";
-    if (status === "error") return "#F75555";
-    return "#3843D0";
-  };
+export default function StatusText() {
+  const stateUi = useSelector((state) => state.stateUi);
 
   return (
     <Text
       style={{
         ...styles.text_image,
-        backgroundColor: colorBg(),
-        color: status === "not_found" ? "#0F172A" : "#F8FAFC"
+        backgroundColor: stateUi.statusFetch?.color,
+        color: stateUi.statusFetch?.colorText
+          ? stateUi.statusFetch.colorText
+          : "#F8FAFC"
       }}
     >
-      {renderMessage()}
+      {stateUi.statusFetch?.name
+        ? stateUi.statusFetch.name
+        : stateUi.statusFetch?.text}
     </Text>
   );
 }

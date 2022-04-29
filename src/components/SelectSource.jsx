@@ -7,33 +7,22 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import { useSelector, useDispatch } from "react-redux";
+
+import { Ionicons } from "@expo/vector-icons";
+import { changeStatus, changeStatusFetch } from "../redux/actions/stateUi";
+
 import StatusText from "./StatusText";
+import { getStatusByFetchResponse } from "../utils/getStatusByFetchResponse";
 
-export default function SelectSource({ close, setPreview }) {
+export default function SelectSource({ close }) {
   const [image, setImage] = useState(null);
-  const [status, setStatus] = useState("error");
-  const [name, setName] = useState("Will Smith");
+  const stateUi = useSelector((state) => state.stateUi);
+  const dispatch = useDispatch();
 
-  const openCamera = async () => {
-    let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-      setPreview(true);
-    }
-  };
-
-  const openGalery = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+  const openPictureProvider = async (type) => {
+    let result = await ImagePicker[type]({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [3, 4],
@@ -44,42 +33,72 @@ export default function SelectSource({ close, setPreview }) {
 
     if (!result.cancelled) {
       setImage(result.uri);
-      setPreview(true);
+      // subir la imagen a la api
+      // manejar los status de la subida
+      uploadPhoto();
     }
+  };
+
+  const uploadPhoto = () => {
+    try {
+      dispatch(changeStatus("Subiendo..."));
+      dispatch(
+        changeStatusFetch({
+          text: "Subiendo...",
+          color: "#3843D0"
+        })
+      );
+      // ...
+      const fetchStatus = Boolean(response.actorName) ? "success" : "notFound";
+      const statusMessage = getStatusByFetchResponse(fetchStatus, actorName);
+      dispatch(changeStatus(statusMessage.text));
+      dispatch(changeStatusFetch(statusMessage.details));
+    } catch (error) {
+      const statusMessage = getStatusByFetchResponse("error");
+      dispatch(changeStatus(statusMessage.text));
+      dispatch(changeStatusFetch(statusMessage.details));
+    }
+  };
+
+  const handleClose = () => {
+    dispatch(changeStatus("Selecciona una foto"));
+    dispatch(changeStatusFetch(null));
+    setImage(null);
+    close();
   };
 
   return (
     <>
+      <TouchableOpacity style={styles.divider} onPress={close} />
+      <Text style={styles.subtitle}>{stateUi.statusText}</Text>
       {image ? (
         <>
-          <TouchableOpacity
-            style={{ ...styles.divider, flex: 0.5 }}
-            onPress={close}
-          />
-          <Text style={styles.subtitle}>Subiendo...</Text>
           <Image source={{ uri: image }} style={styles.image_preview} />
-          <StatusText status={status} name={name} />
-          {status !== "search" && status !== "ready" && (
-            <TouchableOpacity style={styles.btn_close}>
-              <Text style={styles.btn_text}>Cerrar</Text>
-            </TouchableOpacity>
-          )}
+          <StatusText />
+          {stateUi.statusFetch?.text !== "Subiendo..." &&
+            stateUi.statusFetch?.text !== "Listo" && (
+              <TouchableOpacity style={styles.btn_close} onPress={handleClose}>
+                <Text style={styles.btn_text}>Cerrar</Text>
+              </TouchableOpacity>
+            )}
         </>
       ) : (
-        <>
-          <TouchableOpacity style={styles.divider} onPress={close} />
-          <Text style={styles.subtitle}>Selecciona una foto</Text>
-          <View style={styles.options}>
-            <TouchableOpacity style={styles.btn_option} onPress={openGalery}>
-              <Ionicons name="ios-image-outline" size={20} color="black" />
-              <Text style={styles.text_label}>Galeria de fotos</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btn_option} onPress={openCamera}>
-              <Ionicons name="camera-outline" size={20} color="black" />
-              <Text style={styles.text_label}>Cámara</Text>
-            </TouchableOpacity>
-          </View>
-        </>
+        <View style={styles.options}>
+          <TouchableOpacity
+            style={styles.btn_option}
+            onPress={() => openPictureProvider("launchImageLibraryAsync")}
+          >
+            <Ionicons name="ios-image-outline" size={20} color="black" />
+            <Text style={styles.text_label}>Galeria de fotos</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btn_option}
+            onPress={() => openPictureProvider("launchCameraAsync")}
+          >
+            <Ionicons name="camera-outline" size={20} color="black" />
+            <Text style={styles.text_label}>Cámara</Text>
+          </TouchableOpacity>
+        </View>
       )}
     </>
   );

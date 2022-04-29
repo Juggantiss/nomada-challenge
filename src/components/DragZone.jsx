@@ -26,10 +26,10 @@ export default function DragZone({ open, opened }) {
 
 const styles = StyleSheet.create({
   dragZone: {
-    flex: 0.4,
+    height: "17%",
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
     marginTop: 10,
     borderRadius: 1,
     borderWidth: 2,
