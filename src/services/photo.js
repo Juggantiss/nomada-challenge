@@ -12,10 +12,8 @@ export const uploadPhoto = async (file) => {
         Nomada: nomadaKey
       }
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error(error);
     return "error";
   }
 };

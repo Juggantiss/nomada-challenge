@@ -64,13 +64,8 @@ export default function SelectSource({ close }) {
         fetchStatus,
         response.actorName
       );
-      console.log("Mensaje fetch");
-      console.log(fetchStatus);
-      console.log(response.actorName);
-      console.log(statusMessage);
       dispatch(changeStatus(statusMessage.text));
       dispatch(changeStatusFetch(statusMessage.details));
-      console.log(stateUi);
     }
   };
 

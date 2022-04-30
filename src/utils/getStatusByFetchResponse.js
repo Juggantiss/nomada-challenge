@@ -9,8 +9,11 @@ const STATUS_MESSAGES = {
   }),
   notFound: {
     text: "No se encontró",
-    color: "#FDE047",
-    colorText: "#0F172A"
+    details: {
+      text: "No se encontró",
+      color: "#FDE047",
+      colorText: "#0F172A"
+    }
   },
   error: {
     text: "Hubo un error",
