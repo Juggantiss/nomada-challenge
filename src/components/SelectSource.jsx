@@ -24,7 +24,7 @@ export default function SelectSource({ close }) {
 
   const openPictureProvider = async (type) => {
     let result = await ImagePicker[type]({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [3, 4],
       quality: 1
@@ -66,6 +66,11 @@ export default function SelectSource({ close }) {
       );
       dispatch(changeStatus(statusMessage.text));
       dispatch(changeStatusFetch(statusMessage.details));
+      if (Boolean(response.actorName)) {
+        setTimeout(() => {
+          console.log("Se encontro al actor: " + response.actorName);
+        }, 1000);
+      }
     }
   };
 
