@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, Platform, Image, Button } from "react-native";
+import { StyleSheet, Text, View, Platform, ScrollView } from "react-native";
 import InfoActor from "../components/InfoActor";
+import Movie from "../components/Movie";
 
 export default function Actor({ route }) {
   // const { movies } = route.params;
@@ -8,9 +9,13 @@ export default function Actor({ route }) {
   return (
     <View style={styles.container}>
       <InfoActor />
-      <View style={styles.movies_container}>
-        <Text style={styles.title}>Peliculas:</Text>
-      </View>
+      <Text style={styles.title}>Peliculas:</Text>
+      <ScrollView style={styles.movies_container}>
+        <Movie />
+        <Movie />
+        <Movie />
+        <Movie />
+      </ScrollView>
     </View>
   );
 }
@@ -18,38 +23,23 @@ export default function Actor({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
     alignItems: "flex-start",
     justifyContent: "flex-start"
   },
   movies_container: {
+    width: "90%",
     height: "100%",
-    marginTop: 10,
+    marginTop: 16,
     marginLeft: "5%",
-    marginRight: "5%",
-    width: "90%"
+    marginRight: "5%"
   },
   title: {
+    marginTop: 10,
+    marginLeft: "5%",
     fontSize: 35,
     fontWeight: "700",
     color: "#000000",
-    ...Platform.select({
-      ios: { fontFamily: "Arial" },
-      android: { fontFamily: "Roboto" }
-    })
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#475569",
-    ...Platform.select({
-      ios: { fontFamily: "Arial" },
-      android: { fontFamily: "Roboto" }
-    })
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#0F172A",
     ...Platform.select({
       ios: { fontFamily: "Arial" },
       android: { fontFamily: "Roboto" }
