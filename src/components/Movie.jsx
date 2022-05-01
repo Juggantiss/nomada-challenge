@@ -1,25 +1,24 @@
 import { StyleSheet, Text, View, Platform, Image, Button } from "react-native";
 
-const Movie = () => (
-  <View style={styles.container}>
-    <View style={styles.desc_movie}>
-      <Text style={styles.title}>Suicide Squad</Text>
-      <Text style={styles.desc}>
-        From DC Comics comes the Suicide Squad, an antihero team of incarcerated
-        supervillains who act as deniable assets for the United...
-      </Text>
+const Movie = ({ data, url }) => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.desc_movie}>
+        <Text style={styles.title}>{data?.original_title}</Text>
+        <Text style={styles.desc}>{data?.overview}</Text>
+      </View>
+      <View style={styles.photo_movie}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: url + data?.poster_path
+          }}
+        />
+        <Text style={styles.star}>{data?.vote_average} ⭐</Text>
+      </View>
     </View>
-    <View style={styles.photo_movie}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: "https://image.tmdb.org/t/p/w500/xFw9RXKZDvevAGocgBK0zteto4U.jpg"
-        }}
-      />
-      <Text style={styles.star}>5.9 ⭐</Text>
-    </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -62,7 +61,6 @@ const styles = StyleSheet.create({
     })
   },
   image: {
-    backgroundColor: "#f0f",
     width: "100%",
     height: "80%",
     borderRadius: 16

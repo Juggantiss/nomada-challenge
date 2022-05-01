@@ -6,20 +6,31 @@ import Movie from "../components/Movie";
 export default function Actor({ route }) {
   const { movies } = route.params;
   console.log(movies);
+  const baseUrl = "https://image.tmdb.org/t/p/w500";
+  const dataInfoActor = {
+    photo: baseUrl + movies?.results[0]?.profile_path,
+    name: movies?.results[0]?.name,
+    gender:
+      movies?.results[0]?.gender === 1
+        ? "Mujer"
+        : movies?.results[0]?.gender === 2
+        ? "Hombre"
+        : "Indefinido",
+    popularity: movies?.results[0]?.popularity
+  };
 
   return (
     <View style={styles.container}>
-      <InfoActor />
+      <InfoActor dataInfoActor={dataInfoActor} />
       <View style={styles.movies}>
         <Text style={styles.title}>Peliculas:</Text>
         <ScrollView
           style={styles.movies_container}
           showsVerticalScrollIndicator={false}
         >
-          <Movie />
-          <Movie />
-          <Movie />
-          <Movie />
+          {movies?.results[0]?.known_for?.map((movie) => (
+            <Movie key={movie.id} data={movie} url={baseUrl} />
+          ))}
         </ScrollView>
       </View>
     </View>

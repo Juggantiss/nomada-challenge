@@ -1,24 +1,24 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const InfoActor = () => (
+const InfoActor = ({ dataInfoActor }) => (
   <View style={styles.container}>
     <Image
       style={styles.image_actor}
       source={{
-        uri: "https://graziamagazine.com/mx/wp-content/uploads/sites/13/2018/08/will-smith-luce-espectacular-a-semanas-de-cumplir-50-anos-destacada.jpg?fit=4200%2C2795"
+        uri: dataInfoActor?.photo
       }}
     />
     <View style={styles.desc_actor}>
       <View style={styles.info_actor}>
-        <Text style={styles.name_actor}>Will Smith</Text>
+        <Text style={styles.name_actor}>{dataInfoActor?.name}</Text>
         <View style={styles.gender}>
-          <Text style={styles.gender_actor}>Hombre</Text>
+          <Text style={styles.gender_actor}>{dataInfoActor?.gender}</Text>
         </View>
       </View>
       <View style={styles.average_actor}>
         <Text style={styles.text_average}>Popularidad:</Text>
-        <Text style={styles.star_average}>27.97 ⭐</Text>
+        <Text style={styles.star_average}>{dataInfoActor?.popularity} ⭐</Text>
       </View>
     </View>
   </View>
