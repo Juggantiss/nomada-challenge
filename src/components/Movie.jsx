@@ -3,8 +3,12 @@ import { StyleSheet, Text, View, Platform, Image } from "react-native";
 const Movie = ({ data, url }) => (
   <View style={styles.container}>
     <View style={styles.desc_movie}>
-      <Text style={styles.title}>{data?.original_title}</Text>
-      <Text style={styles.desc}>{data?.overview}</Text>
+      <Text style={styles.title} numberOfLines={1}>
+        {data?.original_title}
+      </Text>
+      <Text style={styles.desc} numberOfLines={6}>
+        {data?.overview}
+      </Text>
     </View>
     <View style={styles.photo_movie}>
       <Image
@@ -49,6 +53,7 @@ const styles = StyleSheet.create({
     })
   },
   desc: {
+    flex: 1,
     marginTop: 10,
     fontSize: 15,
     textAlign: "left",
