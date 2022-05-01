@@ -1,24 +1,22 @@
-import { StyleSheet, Text, View, Platform, Image, Button } from "react-native";
+import { StyleSheet, Text, View, Platform, Image } from "react-native";
 
-const Movie = ({ data, url }) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.desc_movie}>
-        <Text style={styles.title}>{data?.original_title}</Text>
-        <Text style={styles.desc}>{data?.overview}</Text>
-      </View>
-      <View style={styles.photo_movie}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: url + data?.poster_path
-          }}
-        />
-        <Text style={styles.star}>{data?.vote_average} ⭐</Text>
-      </View>
+const Movie = ({ data, url }) => (
+  <View style={styles.container}>
+    <View style={styles.desc_movie}>
+      <Text style={styles.title}>{data?.original_title}</Text>
+      <Text style={styles.desc}>{data?.overview}</Text>
     </View>
-  );
-};
+    <View style={styles.photo_movie}>
+      <Image
+        style={styles.image}
+        source={{
+          uri: url + data?.poster_path
+        }}
+      />
+      <Text style={styles.star}>{data?.vote_average} ⭐</Text>
+    </View>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {

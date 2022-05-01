@@ -5,8 +5,8 @@ import Movie from "../components/Movie";
 
 export default function Actor({ route }) {
   const { movies } = route.params;
-  console.log(movies);
   const baseUrl = "https://image.tmdb.org/t/p/w500";
+
   const dataInfoActor = {
     photo: baseUrl + movies?.results[0]?.profile_path,
     name: movies?.results[0]?.name,
@@ -19,6 +19,15 @@ export default function Actor({ route }) {
     popularity: movies?.results[0]?.popularity
   };
 
+  const allMovies = () => {
+    let dataMovies = [];
+    movies?.results?.forEach((result) => {
+      dataMovies = [...dataMovies, ...result?.known_for];
+    });
+
+    return dataMovies;
+  };
+
   return (
     <View style={styles.container}>
       <InfoActor dataInfoActor={dataInfoActor} />
@@ -28,8 +37,8 @@ export default function Actor({ route }) {
           style={styles.movies_container}
           showsVerticalScrollIndicator={false}
         >
-          {movies?.results[0]?.known_for?.map((movie) => (
-            <Movie key={movie.id} data={movie} url={baseUrl} />
+          {allMovies().map((movie, index) => (
+            <Movie key={index} data={movie} url={baseUrl} />
           ))}
         </ScrollView>
       </View>
