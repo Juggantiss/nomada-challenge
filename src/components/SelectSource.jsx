@@ -11,7 +11,11 @@ import * as ImagePicker from "expo-image-picker";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Ionicons } from "@expo/vector-icons";
-import { changeStatus, changeStatusFetch } from "../redux/actions/stateUi";
+import {
+  changeStatus,
+  changeStatusFetch,
+  reset
+} from "../redux/actions/stateUi";
 
 import StatusText from "./StatusText";
 import { getStatusByFetchResponse } from "../utils/getStatusByFetchResponse";
@@ -77,10 +81,9 @@ export default function SelectSource({ close, navigation }) {
   };
 
   const handleClose = () => {
-    dispatch(changeStatus("Selecciona una foto"));
-    dispatch(changeStatusFetch(null));
-    setImage(null);
     close();
+    setImage(null);
+    dispatch(reset());
   };
 
   return (
