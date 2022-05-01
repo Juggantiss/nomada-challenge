@@ -17,6 +17,8 @@ export const stateUiReducer = (state = initialState, action) => {
         ...state,
         statusFetch: action.payload
       };
+    case TYPE_STATE_UI.TOGGLE_RESET:
+      return initialState;
 
     default:
       return state;

@@ -3,12 +3,16 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
 import Home from "../screens/Home";
 import Actor from "../screens/Actor";
+import { reset } from "../redux/actions/stateUi";
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
+  const dispatch = useDispatch();
+
   return (
     <NavigationContainer>
       <StatusBar style="light" />
@@ -32,7 +36,8 @@ export default function Navigation() {
               <TouchableOpacity
                 style={styles.arrow_back}
                 onPress={() => {
-                  navigation.goBack();
+                  navigation.replace("Home");
+                  dispatch(reset());
                 }}
               >
                 <Ionicons name="arrow-back-outline" size={20} color="black" />
