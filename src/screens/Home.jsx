@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { StyleSheet, Text, View, Platform, Animated } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import DragZone from "../components/DragZone";
 import SelectSource from "../components/SelectSource";
 
@@ -32,6 +33,7 @@ export default function Home({ navigation }) {
         backgroundColor: open ? "rgba(15, 23, 42, 0.5)" : "#FFFFFF"
       }}
     >
+      <StatusBar style="dark" />
       <View style={styles.header}>
         <Text style={styles.title}>Hey, Dev 👋</Text>
         <Text style={styles.subtitle}>Keep up the good work!</Text>

@@ -1,6 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
@@ -15,7 +14,6 @@ export default function Navigation() {
 
   return (
     <NavigationContainer>
-      <StatusBar style="light" />
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"

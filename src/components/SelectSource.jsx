@@ -75,7 +75,7 @@ export default function SelectSource({ close, navigation }) {
         setTimeout(async () => {
           const movies = await searchActor(response.actorName);
           navigation.navigate("Actor", { movies });
-        }, 1000);
+        }, 500);
       }
     }
   };

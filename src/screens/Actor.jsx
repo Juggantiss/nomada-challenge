@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Platform, ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import InfoActor from "../components/InfoActor";
 import Movie from "../components/Movie";
 
@@ -30,6 +31,7 @@ export default function Actor({ route }) {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <InfoActor dataInfoActor={dataInfoActor} />
       <View style={styles.movies}>
         <Text style={styles.title}>Peliculas:</Text>
