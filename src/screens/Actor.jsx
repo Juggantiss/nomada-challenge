@@ -4,7 +4,8 @@ import InfoActor from "../components/InfoActor";
 import Movie from "../components/Movie";
 
 export default function Actor({ route }) {
-  // const { movies } = route.params;
+  const { movies } = route.params;
+  console.log(movies);
 
   return (
     <View style={styles.container}>

@@ -16,8 +16,9 @@ import { changeStatus, changeStatusFetch } from "../redux/actions/stateUi";
 import StatusText from "./StatusText";
 import { getStatusByFetchResponse } from "../utils/getStatusByFetchResponse";
 import { uploadPhoto } from "../services/photo";
+import { searchActor } from "../services/movies";
 
-export default function SelectSource({ close }) {
+export default function SelectSource({ close, navigation }) {
   const [image, setImage] = useState(null);
   const stateUi = useSelector((state) => state.stateUi);
   const dispatch = useDispatch();
@@ -67,8 +68,9 @@ export default function SelectSource({ close }) {
       dispatch(changeStatus(statusMessage.text));
       dispatch(changeStatusFetch(statusMessage.details));
       if (Boolean(response.actorName)) {
-        setTimeout(() => {
-          console.log("Se encontro al actor: " + response.actorName);
+        setTimeout(async () => {
+          const movies = await searchActor(response.actorName);
+          navigation.navigate("Actor", { movies });
         }, 1000);
       }
     }

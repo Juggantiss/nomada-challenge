@@ -11,7 +11,7 @@ import {
 import DragZone from "../components/DragZone";
 import SelectSource from "../components/SelectSource";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [open, setOpen] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -56,7 +56,7 @@ export default function Home() {
           }
         ]}
       >
-        <SelectSource close={fadeOut} />
+        <SelectSource close={fadeOut} navigation={navigation} />
       </Animated.View>
     </View>
   );

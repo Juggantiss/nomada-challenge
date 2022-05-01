@@ -12,7 +12,7 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <StatusBar style="light" />
-      <Stack.Navigator initialRouteName="Actor">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={Home}
