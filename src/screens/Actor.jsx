@@ -9,36 +9,40 @@ export default function Actor({ route }) {
   return (
     <View style={styles.container}>
       <InfoActor />
-      <Text style={styles.title}>Peliculas:</Text>
-      <ScrollView style={styles.movies_container}>
-        <Movie />
-        <Movie />
-        <Movie />
-        <Movie />
-      </ScrollView>
+      <View style={styles.movies}>
+        <Text style={styles.title}>Peliculas:</Text>
+        <ScrollView
+          style={styles.movies_container}
+          showsVerticalScrollIndicator={false}
+        >
+          <Movie />
+          <Movie />
+          <Movie />
+          <Movie />
+        </ScrollView>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    alignItems: "flex-start",
-    justifyContent: "flex-start"
+    flex: 1
+  },
+  movies: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "60%",
+    paddingHorizontal: 15
   },
   movies_container: {
-    width: "90%",
-    height: "100%",
-    marginTop: 16,
-    marginLeft: "5%",
-    marginRight: "5%"
+    width: "100%",
+    height: "100%"
   },
   title: {
-    marginTop: 10,
-    marginLeft: "5%",
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: "700",
+    marginVertical: 15,
     color: "#000000",
     ...Platform.select({
       ios: { fontFamily: "Arial" },

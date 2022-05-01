@@ -9,13 +9,12 @@ const InfoActor = () => (
         uri: "https://graziamagazine.com/mx/wp-content/uploads/sites/13/2018/08/will-smith-luce-espectacular-a-semanas-de-cumplir-50-anos-destacada.jpg?fit=4200%2C2795"
       }}
     />
-    <TouchableOpacity style={styles.arrow_back}>
-      <Ionicons name="arrow-back-outline" size={35} color="black" />
-    </TouchableOpacity>
     <View style={styles.desc_actor}>
       <View style={styles.info_actor}>
         <Text style={styles.name_actor}>Will Smith</Text>
-        <Text style={styles.gender_actor}>Hombre</Text>
+        <View style={styles.gender}>
+          <Text style={styles.gender_actor}>Hombre</Text>
+        </View>
       </View>
       <View style={styles.average_actor}>
         <Text style={styles.text_average}>Popularidad:</Text>
@@ -27,46 +26,27 @@ const InfoActor = () => (
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%"
+    width: "100%",
+    height: "40%"
   },
   image_actor: {
     width: "100%",
-    height: 400
-  },
-  arrow_back: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    position: "absolute",
-    top: 50,
-    left: 20,
-    width: 55,
-    height: 55,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center"
+    height: "100%"
   },
   desc_actor: {
-    display: "flex",
+    width: "100%",
+    justifyContent: "space-between",
+    flexDirection: "row",
     position: "absolute",
     bottom: 0,
-    width: "100%",
-    height: 80,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "flex-start"
-  },
-  info_actor: {
-    width: "50%",
-    height: "100%",
-    alignItems: "flex-start"
+    padding: 15
   },
   average_actor: {
-    width: "40%",
-    height: "80%",
-    alignItems: "flex-end",
-    justifyContent: "flex-end"
+    justifyContent: "center"
   },
   name_actor: {
-    fontSize: 32,
+    fontSize: 25,
+    marginBottom: 5,
     fontWeight: "700",
     color: "#F8FAFC",
     ...Platform.select({
@@ -75,7 +55,7 @@ const styles = StyleSheet.create({
     })
   },
   text_average: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "700",
     color: "#F8FAFC",
     ...Platform.select({
@@ -92,15 +72,15 @@ const styles = StyleSheet.create({
       android: { fontFamily: "Roboto" }
     })
   },
-  gender_actor: {
+  gender: {
     backgroundColor: "#FACC15",
-    width: "auto",
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 2,
-    paddingBottom: 2,
-    borderRadius: 35,
-    fontSize: 14,
+    alignSelf: "flex-start",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 35
+  },
+  gender_actor: {
+    fontSize: 13,
     fontWeight: "700",
     color: "#0F172A",
     ...Platform.select({

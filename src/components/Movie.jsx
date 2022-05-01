@@ -24,32 +24,26 @@ const Movie = () => (
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 180,
     backgroundColor: "#F1F5F9",
-    alignItems: "flex-start",
-    justifyContent: "space-evenly",
     flexDirection: "row",
     marginBottom: 15,
-    borderRadius: 16
+    borderRadius: 15,
+    padding: 15
   },
   desc_movie: {
-    width: "70%",
-    height: "100%",
-    marginLeft: "5%",
-    marginRight: "5%",
+    width: "75%",
+    height: 150,
+    paddingRight: 15,
     justifyContent: "flex-start"
   },
   photo_movie: {
-    width: "30%",
-    height: "100%",
-    marginLeft: "5%",
-    marginRight: "5%",
-    justifyContent: "space-evenly",
+    width: "25%",
+    height: 150,
+    justifyContent: "space-between",
     alignItems: "center"
   },
   title: {
-    marginLeft: "5%",
-    fontSize: 35,
+    fontSize: 25,
     fontWeight: "700",
     color: "#000000",
     ...Platform.select({
@@ -59,9 +53,7 @@ const styles = StyleSheet.create({
   },
   desc: {
     marginTop: 10,
-    marginLeft: "5%",
-    fontSize: 16,
-    fontWeight: "700",
+    fontSize: 15,
     textAlign: "left",
     color: "#000000",
     ...Platform.select({
@@ -69,9 +61,14 @@ const styles = StyleSheet.create({
       android: { fontFamily: "Roboto" }
     })
   },
-  image: { width: "80%", height: 140, borderRadius: 16, marginRight: 10 },
+  image: {
+    backgroundColor: "#f0f",
+    width: "100%",
+    height: "80%",
+    borderRadius: 16
+  },
   star: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "700",
     color: "#0F172A",
     ...Platform.select({
