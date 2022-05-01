@@ -1,13 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-  Animated,
-  TouchableOpacity,
-  Button
-} from "react-native";
+import { StyleSheet, Text, View, Platform, Animated } from "react-native";
 import DragZone from "../components/DragZone";
 import SelectSource from "../components/SelectSource";
 

@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 const InfoActor = ({ dataInfoActor }) => (
   <View style={styles.container}>
